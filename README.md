@@ -18,16 +18,16 @@ A cutting-edge AI-powered machine learning application that predicts laptop pric
 
 ## 📈 Model Performance
 
-### **Accuracy Metrics**
+### **Model Comparison - R² Scores**
 
-| Metric | Value |
-|--------|-------|
-| **R² Score (Training)** | 0.9487 |
-| **R² Score (Testing)** | 0.9312 |
-| **Mean Absolute Error (MAE)** | ₹8,432 |
-| **Root Mean Squared Error (RMSE)** | ₹14,267 |
-| **Model Type** | XGBoost Regressor |
-| **Hyperparameter Tuning** | Optuna |
+| Model | Training R² | Testing R² | Status |
+|-------|-------------|-----------|--------|
+| **XGBoost** ⭐ | 0.9240 | **0.8773** | ✅ **SELECTED** |
+| Random Forest | 0.9623 | 0.8685 | Good |
+| Decision Tree | 0.9733 | 0.8437 | Fair |
+| Linear Regression | 0.8225 | 0.8268 | Baseline |
+
+**Best Model**: XGBoost (Selected for production)
 
 ### **Dataset Information**
 
@@ -37,19 +37,48 @@ A cutting-edge AI-powered machine learning application that predicts laptop pric
 - **Features Used**: 11 specifications
 - **Target Variable**: Log-transformed Price
 
-### **Key Features Used**
+### **Feature Engineering Pipeline**
 
-1. 🏢 **Company** - Laptop brand
-2. 🖥️ **TypeName** - Laptop type (Ultrabook, Notebook, etc.)
-3. 🧠 **RAM** - Memory in GB (2-64 GB)
-4. 💾 **SSD** - Storage in GB (0-2048 GB)
-5. 🖥️ **OpSys** - Operating System (Windows, MacOS, Linux)
-6. 📺 **GPU_Brand** - Graphics card brand
-7. ⚙️ **CPU_Category** - Processor type (i3, i5, i7, etc.)
-8. 📍 **PPI** - Pixels Per Inch (50-500)
-9. 💻 **IPS_Panel** - IPS display (Yes/No)
-10. 🔧 **i3/i7 Flags** - CPU type indicators
-11. 🎮 **Weight & Power** - Physical specifications
+1. **Data Cleaning**
+   - Remove duplicate entries
+   - Drop unnecessary index columns
+   - Handle missing values
+
+2. **Memory & Weight Processing**
+   - Extract numeric values from RAM (GB)
+   - Extract numeric values from Weight (kg)
+   - Convert to appropriate data types
+
+3. **Display Features**
+   - Extract TouchScreen indicator from ScreenResolution
+   - Extract IPS Panel indicator from ScreenResolution
+   - Calculate PPI (Pixels Per Inch) = √(Width² + Height²) / Inches
+
+4. **CPU Feature Engineering**
+   - Categorize processors into: Intel i3, i5, i7, Other Intel, AMD
+   - Create binary flags for i3, i5, i7 processors
+   - Extract CPU category from processor name
+
+5. **GPU Features**
+   - Extract GPU brand (Intel, NVIDIA, AMD)
+   - Identify discrete vs integrated graphics
+
+6. **Feature Selection**
+   - Calculate correlation with Price
+   - Remove features with correlation between -0.25 and +0.25
+   - Drop redundant columns: Inches, ScreenResolution, Cpu, Gpu, Width, Height, GPU_Type, GPU_Number
+
+7. **Final Features Used**
+   - Company (Brand)
+   - TypeName (Laptop Type)
+   - Ram (Memory in GB)
+   - OpSys (Operating System)
+   - IPS_Panel (Display Type)
+   - CPU_Category (Processor Type)
+   - i3, i7 (CPU Flags)
+   - PPI (Pixels Per Inch)
+   - GPU_Brand (Graphics Card)
+   - ssd (Storage in GB)
 
 ## 🛠️ Tech Stack
 
@@ -124,24 +153,27 @@ xgboost==1.7.6.1
 
 ## 📊 Model Training
 
-### Preprocessing Steps
-- ✅ Categorical encoding with OneHotEncoder
-- ✅ Log transformation for target variable
-- ✅ Feature scaling and normalization
-- ✅ Outlier handling
-
-### Model Details
-- **Algorithm**: XGBoost Regressor
+### **Training Pipeline**
+- **Algorithm**: XGBoost Regressor (Best performing model)
 - **Loss Function**: Squared Error (MSE)
+- **Hyperparameter Tuning**: Optuna optimization framework
 - **Cross-Validation**: 5-Fold CV
-- **Best Parameters**: Optuna-tuned hyperparameters
+- **Target Transformation**: Log-transformed prices for better distribution
 
-### Training Results
+### **Final Performance**
 ```
-Training R²: 0.9487
-Testing R²:  0.9312
-Cross-Val Mean: 0.9285 (+/- 0.0089)
+Training R²:  0.9240
+Testing R²:   0.8773 ✅ (Selected)
 ```
+
+### **Model Selection Rationale**
+
+| Model | Why Selected/Not Selected |
+|-------|--------------------------|
+| **XGBoost** ✅ | Best test R² (0.8773), excellent generalization, robust to outliers |
+| Random Forest | Good performance (0.8685) but longer prediction time |
+| Decision Tree | Overfitting (Train: 0.9733 vs Test: 0.8437), less stable |
+| Linear Regression | Underfitting, poor baseline (0.8268) |
 
 ## 📁 Project Structure
 
@@ -167,16 +199,18 @@ The XGBoost model was trained using:
 
 ## 🔍 Accuracy Interpretation
 
-- **R² = 0.9312** means the model explains **93.12%** of price variance
-- **MAE = ₹8,432** means predictions are typically within ±₹8,432 of actual price
-- **RMSE = ₹14,267** accounts for larger deviations
+- **R² = 0.8773** means the model explains **87.73%** of price variance in test data
+- **Better generalization** than other models due to XGBoost's boosting strategy
+- **Robust predictions** even with unseen laptop configurations
+- **Optimal complexity**: Avoids both underfitting and severe overfitting
 
-## ⚠️ Limitations
+## ⚠️ Model Limitations
 
-- Model trained on laptop data up to 2025
-- Predictions may vary with new market trends
-- Limited to laptop types in training data
-- Works best for mid-range laptops (₹20,000 - ₹2,00,000)
+- Model trained on ~1,300 laptop samples - new brands may not be recognized
+- Predictions based on historical data; market trends may have changed
+- R² of 0.8773 indicates ~12% of price variance is unexplained
+- Works best for mid-range laptops with common configurations
+- May not predict accurately for specialty/gaming laptops with extreme specs
 
 ## 🐛 Troubleshooting
 
