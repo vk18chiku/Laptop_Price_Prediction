@@ -14,104 +14,116 @@ st.set_page_config(
 # Custom CSS for Beautiful Design
 st.markdown("""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
     
     * {
-        font-family: 'Poppins', sans-serif;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     }
     
     [data-testid="stAppViewContainer"] {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background-color: #f8fafc;
         background-attachment: fixed;
     }
     
+    [data-testid="stSidebar"] {
+        background-color: #ffffff;
+        border-right: 1px solid #e2e8f0;
+    }
+    
     .header-box {
-        background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        padding: 40px;
-        border-radius: 20px;
+        background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+        padding: 50px 40px;
+        border-radius: 16px;
         color: white;
         text-align: center;
-        margin-bottom: 30px;
-        box-shadow: 0 8px 32px rgba(102, 126, 234, 0.2);
+        margin-bottom: 35px;
+        box-shadow: 0 10px 30px rgba(59, 130, 246, 0.15);
     }
     
     .header-box h1 {
         margin: 0;
-        font-size: 3rem;
+        font-size: 2.8rem;
         font-weight: 800;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        letter-spacing: -0.5px;
     }
     
     .header-box p {
         margin: 15px 0 0 0;
-        font-size: 1.2rem;
-        font-weight: 300;
+        font-size: 1.1rem;
+        font-weight: 400;
+        opacity: 0.95;
+    }
+    
+    .price-box-usd {
+        background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+        padding: 40px;
+        border-radius: 16px;
+        color: white;
+        text-align: center;
+        margin: 20px 0;
+        box-shadow: 0 12px 35px rgba(59, 130, 246, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .price-box-usd:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 45px rgba(59, 130, 246, 0.3);
+    }
+    
+    .price-box-inr {
+        background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+        padding: 40px;
+        border-radius: 16px;
+        color: white;
+        text-align: center;
+        margin: 20px 0;
+        box-shadow: 0 12px 35px rgba(6, 182, 212, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .price-box-inr:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 45px rgba(6, 182, 212, 0.3);
+    }
+    
+    .price-label {
+        font-size: 0.95rem;
+        font-weight: 500;
         opacity: 0.9;
-    }
-    
-    .price-box-blue {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        padding: 35px;
-        border-radius: 20px;
-        color: white;
-        text-align: center;
-        margin: 15px 0;
-        box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        transition: all 0.3s ease;
-    }
-    
-    .price-box-blue:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 25px 50px rgba(102, 126, 234, 0.4);
-    }
-    
-    .price-box-pink {
-        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        padding: 35px;
-        border-radius: 20px;
-        color: white;
-        text-align: center;
-        margin: 15px 0;
-        box-shadow: 0 15px 40px rgba(245, 87, 108, 0.3);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        transition: all 0.3s ease;
-    }
-    
-    .price-box-pink:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 25px 50px rgba(245, 87, 108, 0.4);
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
     }
     
     .price-number {
-        font-size: 3rem;
+        font-size: 3.2rem;
         font-weight: 800;
-        margin: 20px 0 0 0;
-        text-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        margin: 18px 0 0 0;
+        letter-spacing: -1px;
     }
     
     .stMetric {
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
+        background: #ffffff;
         padding: 20px;
-        border-radius: 15px;
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 12px;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     }
     
     .footer-text {
         text-align: center;
-        color: rgba(255, 255, 255, 0.8);
-        padding: 25px;
+        color: #64748b;
+        padding: 30px;
         font-size: 0.95rem;
-        background: rgba(102, 126, 234, 0.1);
-        border-radius: 15px;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        backdrop-filter: blur(10px);
+        background: #ffffff;
+        border-radius: 12px;
+        border: 1px solid #e2e8f0;
+        margin-top: 30px;
+    }
+    
+    h2, h3 {
+        color: #1e293b;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -251,24 +263,13 @@ if predict_button:
         
         st.markdown("")
         
-        # Price Display - 2 Column Layout
-        col_price1, col_price2 = st.columns(2)
-        
-        with col_price1:
-            st.markdown(f"""
-            <div class='price-box-blue'>
-                <h3 style='color: white; margin: 0;'>� USD Price</h3>
-                <div class='price-number'>{predicted_price:,.2f}</div>
-            </div>
-            """, unsafe_allow_html=True)
-        
-        with col_price2:
-            st.markdown(f"""
-            <div class='price-box-pink'>
-                <h3 style='color: white; margin: 0;'>₹ INR Price</h3>
-                <div class='price-number'>₹{predicted_price * 83:,.0f}</div>
-            </div>
-            """, unsafe_allow_html=True)
+        # Price Display - Full Width
+        st.markdown(f"""
+        <div class='price-box-inr'>
+            <div class='price-label'>💰 Estimated Price</div>
+            <div class='price-number'>₹ {predicted_price:,.0f}</div>
+        </div>
+        """, unsafe_allow_html=True)
         
         st.markdown("")
         
