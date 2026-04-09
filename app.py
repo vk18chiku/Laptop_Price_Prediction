@@ -14,116 +14,170 @@ st.set_page_config(
 # Custom CSS for Beautiful Design
 st.markdown("""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
     
     * {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        font-family: 'Outfit', sans-serif;
     }
     
     [data-testid="stAppViewContainer"] {
-        background-color: #f8fafc;
+        background: linear-gradient(135deg, #0f172a 0%, #1a1f3a 100%);
         background-attachment: fixed;
     }
     
     [data-testid="stSidebar"] {
-        background-color: #ffffff;
-        border-right: 1px solid #e2e8f0;
+        background: #151d2e !important;
+        border-right: 2px solid #00d4ff !important;
     }
     
     .header-box {
-        background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
-        padding: 50px 40px;
-        border-radius: 16px;
+        background: linear-gradient(135deg, #00d4ff 0%, #0099cc 50%, #ff006e 100%);
+        padding: 50px;
+        border-radius: 20px;
         color: white;
         text-align: center;
-        margin-bottom: 35px;
-        box-shadow: 0 10px 30px rgba(59, 130, 246, 0.15);
+        margin-bottom: 40px;
+        box-shadow: 0 20px 60px rgba(0, 212, 255, 0.4),
+                    0 0 80px rgba(255, 0, 110, 0.2);
+        border: 2px solid rgba(0, 212, 255, 0.5);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .header-box::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+        pointer-events: none;
     }
     
     .header-box h1 {
         margin: 0;
-        font-size: 2.8rem;
-        font-weight: 800;
-        letter-spacing: -0.5px;
-    }
-    
-    .header-box p {
-        margin: 15px 0 0 0;
-        font-size: 1.1rem;
-        font-weight: 400;
-        opacity: 0.95;
-    }
-    
-    .price-box-usd {
-        background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-        padding: 40px;
-        border-radius: 16px;
-        color: white;
-        text-align: center;
-        margin: 20px 0;
-        box-shadow: 0 12px 35px rgba(59, 130, 246, 0.2);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    .price-box-usd:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 20px 45px rgba(59, 130, 246, 0.3);
-    }
-    
-    .price-box-inr {
-        background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
-        padding: 40px;
-        border-radius: 16px;
-        color: white;
-        text-align: center;
-        margin: 20px 0;
-        box-shadow: 0 12px 35px rgba(6, 182, 212, 0.2);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    .price-box-inr:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 20px 45px rgba(6, 182, 212, 0.3);
-    }
-    
-    .price-label {
-        font-size: 0.95rem;
-        font-weight: 500;
-        opacity: 0.9;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-    }
-    
-    .price-number {
         font-size: 3.2rem;
         font-weight: 800;
-        margin: 18px 0 0 0;
+        position: relative;
+        z-index: 1;
+        text-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
         letter-spacing: -1px;
     }
     
+    .header-box p {
+        margin: 18px 0 0 0;
+        font-size: 1.15rem;
+        font-weight: 500;
+        opacity: 0.95;
+        position: relative;
+        z-index: 1;
+        letter-spacing: 0.5px;
+    }
+    
+    .price-box-inr {
+        background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+        padding: 50px;
+        border-radius: 20px;
+        color: white;
+        text-align: center;
+        margin: 30px 0;
+        box-shadow: 0 20px 60px rgba(0, 212, 255, 0.35);
+        border: 2px solid rgba(0, 212, 255, 0.5);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .price-box-inr::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+        animation: glow 6s ease-in-out infinite;
+    }
+    
+    @keyframes glow {
+        0%, 100% { transform: translate(0, 0); }
+        50% { transform: translate(30px, 30px); }
+    }
+    
+    .price-box-inr:hover {
+        transform: translateY(-12px);
+        box-shadow: 0 30px 80px rgba(0, 212, 255, 0.5);
+        border-color: rgba(0, 212, 255, 0.8);
+    }
+    
+    .price-label {
+        font-size: 1.1rem;
+        font-weight: 600;
+        opacity: 0.95;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .price-number {
+        font-size: 3.8rem;
+        font-weight: 800;
+        margin: 25px 0 0 0;
+        letter-spacing: -2px;
+        position: relative;
+        z-index: 2;
+        text-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    
     .stMetric {
-        background: #ffffff;
-        padding: 20px;
-        border-radius: 12px;
-        border: 1px solid #e2e8f0;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(255, 0, 110, 0.05) 100%);
+        padding: 25px;
+        border-radius: 15px;
+        border: 2px solid rgba(0, 212, 255, 0.3);
+        box-shadow: 0 8px 32px rgba(0, 212, 255, 0.1);
+        transition: all 0.3s ease;
+    }
+    
+    .stMetric:hover {
+        border-color: rgba(0, 212, 255, 0.6);
+        background: linear-gradient(135deg, rgba(0, 212, 255, 0.15) 0%, rgba(255, 0, 110, 0.1) 100%);
+        box-shadow: 0 12px 40px rgba(0, 212, 255, 0.2);
     }
     
     .footer-text {
         text-align: center;
-        color: #64748b;
-        padding: 30px;
-        font-size: 0.95rem;
-        background: #ffffff;
-        border-radius: 12px;
-        border: 1px solid #e2e8f0;
-        margin-top: 30px;
+        color: rgba(0, 212, 255, 0.8);
+        padding: 35px;
+        font-size: 1rem;
+        background: linear-gradient(135deg, rgba(0, 212, 255, 0.08) 0%, rgba(255, 0, 110, 0.04) 100%);
+        border-radius: 15px;
+        border: 2px solid rgba(0, 212, 255, 0.3);
+        margin-top: 40px;
+        font-weight: 500;
     }
     
     h2, h3 {
-        color: #1e293b;
+        color: #00d4ff;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+    }
+    
+    [data-testid="stButton"] > button {
+        background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%) !important;
+        color: white !important;
+        border: none !important;
+        font-weight: 700 !important;
+        font-size: 1.1rem !important;
+        padding: 15px 40px !important;
+        box-shadow: 0 12px 30px rgba(0, 212, 255, 0.3) !important;
+        transition: all 0.3s ease !important;
+    }
+    
+    [data-testid="stButton"] > button:hover {
+        transform: translateY(-4px) !important;
+        box-shadow: 0 18px 50px rgba(0, 212, 255, 0.5) !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -142,18 +196,18 @@ data, pipe = load_models()
 st.markdown("""
 <div class='header-box'>
     <h1>💻 LAPTOP PRICE PREDICTOR</h1>
-    <p>🤖 AI-Powered XGBoost Model | Real-time Price Prediction</p>
+    <p>🚀 AI-Powered XGBoost Model | Real-time Price Prediction</p>
 </div>
 """, unsafe_allow_html=True)
 
 # Model Info
 col_info1, col_info2, col_info3 = st.columns(3)
 with col_info1:
-    st.metric("📊 Dataset", "1303 Laptops", None)
+    st.metric("📊 Dataset", "1300+ Laptops", None)
 with col_info2:
-    st.metric("🎯 Model", "XGBoost", None)
+    st.metric("🤖 Model", "XGBoost", None)
 with col_info3:
-    st.metric("🔧 Optimization", "Optuna", None)
+    st.metric("⚡ Speed", "Instant", None)
 
 st.markdown("---")
 
