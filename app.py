@@ -14,53 +14,104 @@ st.set_page_config(
 # Custom CSS for Beautiful Design
 st.markdown("""
 <style>
-    .header-box {
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
+    
+    * {
+        font-family: 'Poppins', sans-serif;
+    }
+    
+    [data-testid="stAppViewContainer"] {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        padding: 30px;
-        border-radius: 15px;
+        background-attachment: fixed;
+    }
+    
+    .header-box {
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 40px;
+        border-radius: 20px;
         color: white;
         text-align: center;
-        margin-bottom: 20px;
+        margin-bottom: 30px;
+        box-shadow: 0 8px 32px rgba(102, 126, 234, 0.2);
     }
+    
     .header-box h1 {
         margin: 0;
-        font-size: 2.5rem;
+        font-size: 3rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
     }
+    
     .header-box p {
-        margin: 10px 0 0 0;
-        font-size: 1.1rem;
+        margin: 15px 0 0 0;
+        font-size: 1.2rem;
+        font-weight: 300;
+        opacity: 0.9;
     }
+    
     .price-box-blue {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        padding: 30px;
-        border-radius: 15px;
+        padding: 35px;
+        border-radius: 20px;
         color: white;
         text-align: center;
-        margin: 10px 0;
+        margin: 15px 0;
+        box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
     }
+    
+    .price-box-blue:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 25px 50px rgba(102, 126, 234, 0.4);
+    }
+    
     .price-box-pink {
         background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        padding: 30px;
-        border-radius: 15px;
+        padding: 35px;
+        border-radius: 20px;
         color: white;
         text-align: center;
-        margin: 10px 0;
+        margin: 15px 0;
+        box-shadow: 0 15px 40px rgba(245, 87, 108, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
     }
+    
+    .price-box-pink:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 25px 50px rgba(245, 87, 108, 0.4);
+    }
+    
     .price-number {
-        font-size: 2.5rem;
-        font-weight: bold;
-        margin: 15px 0 0 0;
+        font-size: 3rem;
+        font-weight: 800;
+        margin: 20px 0 0 0;
+        text-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     }
+    
     .stMetric {
-        background: #f8f9fa;
-        padding: 15px;
-        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 20px;
+        border-radius: 15px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
     }
+    
     .footer-text {
         text-align: center;
-        color: #666;
-        padding: 20px;
-        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.8);
+        padding: 25px;
+        font-size: 0.95rem;
+        background: rgba(102, 126, 234, 0.1);
+        border-radius: 15px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
     }
 </style>
 """, unsafe_allow_html=True)
@@ -206,8 +257,8 @@ if predict_button:
         with col_price1:
             st.markdown(f"""
             <div class='price-box-blue'>
-                <h3 style='color: white; margin: 0;'>💰 USD Price</h3>
-                <div class='price-number'>${predicted_price:,.2f}</div>
+                <h3 style='color: white; margin: 0;'>� USD Price</h3>
+                <div class='price-number'>{predicted_price:,.2f}</div>
             </div>
             """, unsafe_allow_html=True)
         
