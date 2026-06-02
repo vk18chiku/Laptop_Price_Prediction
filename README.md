@@ -28,6 +28,7 @@ A cutting-edge AI-powered machine learning application that predicts laptop pric
 | Linear Regression | 0.8225 | 0.8268 | Baseline |
 
 **Best Model**: XGBoost (Selected for production)
+![Laptop Price Predictor](Screenshot%202026-06-02%20085605.png)
 
 ### **Dataset Information**
 
